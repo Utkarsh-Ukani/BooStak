@@ -18,7 +18,7 @@ export const getAllBooks = async (req, res) => {
     const books = await Book.find().sort({ createdAt: -1 });
     res
       .status(200)
-      .send({ message: "All books fetched successfully", book: books });
+      .send(books);
   } catch (error) {
     console.error("Error while fetching books ", error);
     res.status(500).send({ message: "Failed to fetch all books" });
@@ -32,7 +32,7 @@ export const getSingleBook = async (req, res) => {
     if (!book) {
       res.status(404).send({ message: "Book not found" });
     }
-    res.status(200).send({ message: "book fetched successfully", book });
+    res.status(200).send(book);
   } catch (error) {
     console.error("Error while getting a book ", error);
     res.status(500).send({ message: "Failed to fetch a book" });
