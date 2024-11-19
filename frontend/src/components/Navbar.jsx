@@ -7,6 +7,7 @@ import { TiShoppingCart } from "react-icons/ti";
 import avatarImg from "../assets/avatar.png";
 import { useState } from "react";
 import { useSelector } from "react-redux";
+import { useAuth } from "../context/AuthContext";
 
 const navigation = [
   {
@@ -28,11 +29,14 @@ const navigation = [
 ];
 
 const Navbar = () => {
-  const currUser = false;
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const cartItems = useSelector(state => state.cart.cartItems);
 
+  const {currentUser,logout} = useAuth();
 
+  const handleLogout = ()=>{
+    logout();
+  }
   return (
     <header className="max-w-screen-2xl mx-auto px-4 py-6">
       <nav className="flex justify-between items-center">
@@ -57,14 +61,14 @@ const Navbar = () => {
         {/* right side */}
         <div className="relative flex items-center md:space-x-3 space-x-2">
           <div>
-            {currUser ? (
+            {currentUser ? (
               <>
                 <button onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
                   <img
                     src={avatarImg}
                     alt="avt"
                     className={`size-7 mt-1 rounded-full ${
-                      currUser ? "ring-2 ring-blue-500" : ""
+                      currentUser ? "ring-2 ring-blue-500" : ""
                     }`}
                   />
                 </button>
@@ -79,6 +83,11 @@ const Navbar = () => {
                           </Link>
                         </li>
                       ))}
+                      <li>
+                        <button
+                        onClick={handleLogout}
+                        className=" w-full text-left block px-4 py-2 text-sm hover:bg-gray-100">Logout</button>
+                      </li>
                     </ul>
                   </div>
                 )}
