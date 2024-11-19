@@ -22,6 +22,10 @@ connectDB().then(()=>{
 // routes
 import bookRoutes from "./src/books/book.route.js"
 app.use("/api/books",bookRoutes)
+import orderRoutes from "./src/orders/order.route.js"
+app.use("/api/orders",orderRoutes)
+
+
 app.get("/",(req,res)=>{
     res.send("Book Server")
 })
@@ -30,4 +34,3 @@ app.listen(port,()=>{
     console.log(`Server is listening at PORT : ${port}`);
 })
 
-// 1pR3Y0U3hs2o1Ob8
