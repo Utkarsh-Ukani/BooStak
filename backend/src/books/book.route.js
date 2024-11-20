@@ -1,9 +1,10 @@
 import express from "express";
 import {createBook, deleteBook, getAllBooks, getSingleBook, updateBook} from "./book.contoller.js"
+import verifyAdminToken from "../middleware/verifyAdminToken.js";
 const router = express.Router();
 
 // post a book
-router.post("/create-book",createBook)
+router.post("/create-book",verifyAdminToken,createBook)
 
 // get all books
 router.get("/",getAllBooks)
@@ -12,9 +13,9 @@ router.get("/",getAllBooks)
 router.get("/:id",getSingleBook)
 
 // update a book endpoint
-router.put("/edit/:id",updateBook);
+router.put("/edit/:id",verifyAdminToken,updateBook);
 
 // delete a book endpoint
-router.delete("/:id",deleteBook)
+router.delete("/:id",verifyAdminToken,deleteBook)
 
 export default router;
